@@ -10,7 +10,7 @@ const Loading = () => {
           transition={{ duration: 0.5 }}
           className="text-7xl font-serif font-bold text-gray-800 mb-8"
         >
-          Reeviy
+          ReeViy
         </motion.h1>
         
         <motion.div

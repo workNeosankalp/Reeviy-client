@@ -18,7 +18,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div>
             <h3 className="text-3xl font-serif font-bold text-white mb-4">
-              Reeviy
+              ReeViy
             </h3>
             <p className="text-gray-400">
               Crafting timeless excellence with a modern touch
@@ -70,7 +70,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center text-gray-500">
-          <p>&copy; {currentYear} Reeviy. All rights reserved.</p>
+          <p>&copy; {currentYear} ReeViy. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -53,7 +53,7 @@ const Navbar = () => {
               {/* Logo Image - uncomment when you have logo */}
               <img
                 src="/logo.png"
-                alt="Reeviy"
+                alt="ReeViy"
                 className="h-10 md:h-12 w-auto object-contain"
               />
 

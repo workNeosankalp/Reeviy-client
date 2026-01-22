@@ -92,7 +92,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 1 }}
           >
-            {"Reeviy".split("").map((letter, index) => (
+            {"ReeViy".split("").map((letter, index) => (
               <motion.span
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -125,7 +125,7 @@ const Hero = () => {
             transition={{ delay: 1.5, duration: 1 }}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            Reeviy — Connecting Ideas, People, and Systems
+            ReeViy — Connecting Ideas, People, and Systems
           </motion.p>
 
           {/* CTA Button with glow effect */}

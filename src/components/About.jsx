@@ -87,7 +87,7 @@ const About = () => {
           />
 
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-gray-800 mb-8 text-center">
-            About Reeviy
+            About ReeViy
           </h2>
 
           <motion.div
@@ -115,12 +115,12 @@ const About = () => {
                 className="text-lg md:text-xl text-gray-700 leading-relaxed text-center"
                 style={{ fontFamily: "'Lora', serif" }}
               >
-                Reeviy is a{" "}
+                ReeViy is a{" "}
                 <span className="font-bold text-gray-900">
                   next-generation digital platform company
                 </span>{" "}
-                focused on building meaningful, human-first social and dating
-                experiences.
+                focused on building meaningful, human-first social and
+                thoughtful experiences.
               </p>
             </motion.div>
 
@@ -153,9 +153,9 @@ const About = () => {
                   className="text-base md:text-lg text-gray-200 leading-relaxed text-center mb-3"
                   style={{ fontFamily: "'Lora', serif" }}
                 >
-                  Launching this month — a fresh take on modern dating designed
-                  to encourage genuine connections, smarter matching, and real
-                  conversations.
+                  Launching this month — a fresh take on Comapanionship and
+                  modern dating designed to combat loneliness through genuine
+                  connections, smarter matching, and real conversations.
                 </p>
 
                 <div className="flex items-center justify-center gap-3 mt-4">
@@ -249,7 +249,7 @@ const About = () => {
                 className="text-base text-gray-700 leading-relaxed mb-4"
                 style={{ fontFamily: "'Lora', serif" }}
               >
-                At Reeviy, we blend{" "}
+                At ReeViy, we blend{" "}
                 <span className="font-semibold text-gray-900">
                   data-driven insights
                 </span>

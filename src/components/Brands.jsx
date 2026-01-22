@@ -1,12 +1,14 @@
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
-import { Users, Star, Download, Sparkles, Clock } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { Users, Star, Download, Sparkles, Clock, Package, DollarSign, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Brands = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const controls = useAnimation();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
 
   useEffect(() => {
     if (isInView) {
@@ -14,29 +16,65 @@ const Brands = () => {
     }
   }, [isInView, controls]);
 
+  // Handle responsive items per view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const brands = [
     {
       name: "ReckMe",
       description:
         "A fresh take on modern dating designed to encourage genuine connections, smarter matching, and real conversations. ReckMe moves beyond swipe culture to help you build meaningful relationships.",
-      // stats: { users: '5K+', rating: '4.7', downloads: '25K+' },
+      website: "https://reckme.com",
+      playStoreUrl: "#",
+      appStoreUrl: "#",
+      logo: null,
       isComingSoon: false,
     },
     {
-      name: "Coming Soon",
+      name: "Supply Chain Platform",
       description:
-        "We're working on something exciting! Our next app will bring new ways to connect and build relationships. Stay tuned for more updates.",
-      // stats: null,
+        "Revolutionizing supply chain management with smart logistics, real-time tracking, and seamless coordination. Coming soon to transform how businesses manage their supply chains.",
+      website: null,
+      logo: Package,
+      logoColor: "text-blue-600",
       isComingSoon: true,
     },
-    // Add more brands here in the future:
-    // {
-    //   name: 'Your New App',
-    //   description: 'Description here',
-    //   stats: { users: '10K+', rating: '4.8', downloads: '50K+' },
-    //   isComingSoon: false
-    // }
+    {
+      name: "Fintech Solution",
+      description:
+        "Next-generation financial technology platform designed to simplify payments, investments, and financial management. Stay tuned for a smarter way to handle your finances.",
+      website: null,
+      logo: DollarSign,
+      logoColor: "text-green-600",
+      isComingSoon: true,
+    },
+    
+    // Add more brands here in the future
   ];
+
+  const maxIndex = Math.max(0, brands.length - itemsPerView);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -60,6 +98,30 @@ const Brands = () => {
       },
     },
   };
+
+  // Play Store Icon SVG
+  const PlayStoreIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      className="w-6 h-6 mr-2"
+      fill="currentColor"
+    >
+      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.919V2.733a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" />
+    </svg>
+  );
+
+  // App Store Icon SVG
+  const AppStoreIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      className="w-6 h-6 mr-2"
+      fill="currentColor"
+    >
+      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+    </svg>
+  );
 
   return (
     <section
@@ -130,162 +192,222 @@ const Brands = () => {
           </motion.p>
         </motion.div>
 
-        {/* Brand Cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="grid md:grid-cols-2 gap-10"
-        >
-          {brands.map((brand, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className={`bg-linear-to-br from-white to-gray-50 p-10 rounded-sm vintage-shadow border-2 border-gray-300 relative overflow-hidden group ${brand.isComingSoon ? "opacity-90" : ""}`}
-            >
-              {/* Decorative corner elements */}
-              <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-gray-400 opacity-40" />
-              <div className="absolute top-0 right-0 w-12 h-12 border-r-2 border-t-2 border-gray-400 opacity-40" />
-              <div className="absolute bottom-0 left-0 w-12 h-12 border-l-2 border-b-2 border-gray-400 opacity-40" />
-              <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-gray-400 opacity-40" />
+        {/* Slider Container */}
+        <div className="relative">
+          {/* Navigation Buttons */}
+          {brands.length > itemsPerView && (
+            <>
+              <button
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 bg-white/90 hover:bg-white border-2 border-gray-400 rounded-full p-3 shadow-lg transition-all duration-300 ${
+                  currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:scale-110"
+                }`}
+                aria-label="Previous brands"
+              >
+                <ChevronLeft size={28} className="text-gray-700" />
+              </button>
 
-              {/* Hover sparkle effect - Only for active brands */}
-              {!brand.isComingSoon && (
+              <button
+                onClick={handleNext}
+                disabled={currentIndex === maxIndex}
+                className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 bg-white/90 hover:bg-white border-2 border-gray-400 rounded-full p-3 shadow-lg transition-all duration-300 ${
+                  currentIndex === maxIndex ? "opacity-50 cursor-not-allowed" : "hover:scale-110"
+                }`}
+                aria-label="Next brands"
+              >
+                <ChevronRight size={28} className="text-gray-700" />
+              </button>
+            </>
+          )}
+
+          {/* Slider Track */}
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-10"
+              animate={{
+                x: `calc(-${currentIndex * (100 / itemsPerView)}% - ${currentIndex * (40 / itemsPerView)}px)`,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+            >
+              {brands.map((brand, index) => (
                 <motion.div
-                  className="absolute top-4 right-4 text-gray-400"
-                  initial={{ opacity: 0, rotate: 0 }}
-                  whileHover={{ opacity: 1, rotate: 180 }}
-                  transition={{ duration: 0.5 }}
+                  key={index}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate={controls}
+                  style={{
+                    minWidth: `calc(${100 / itemsPerView}% - ${(40 * (itemsPerView - 1)) / itemsPerView}px)`,
+                  }}
+                  className={`bg-linear-to-br from-white to-gray-50 p-10 rounded-sm vintage-shadow border-2 border-gray-300 relative overflow-hidden group ${brand.isComingSoon ? "opacity-90" : ""}`}
                 >
-                  <Sparkles size={24} />
-                </motion.div>
-              )}
+                  {/* Decorative corner elements */}
+                  <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-gray-400 opacity-40" />
+                  <div className="absolute top-0 right-0 w-12 h-12 border-r-2 border-t-2 border-gray-400 opacity-40" />
+                  <div className="absolute bottom-0 left-0 w-12 h-12 border-l-2 border-b-2 border-gray-400 opacity-40" />
+                  <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-gray-400 opacity-40" />
 
-              {/* Brand Logo Placeholder */}
-              <motion.div
-                className={`w-full h-56 bg-linear-to-br ${brand.isComingSoon ? "from-gray-300 to-gray-400" : "from-gray-200 to-gray-300"} rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative`}
-                whileHover={{ scale: brand.isComingSoon ? 1 : 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                {!brand.isComingSoon && (
-                  <motion.div
-                    className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
-                    animate={{
-                      x: ["-100%", "100%"],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      repeatDelay: 2,
-                    }}
-                  />
-                )}
-
-                {/* Show "COMING SOON" text in logo area for coming soon brands */}
-                {brand.isComingSoon ? (
-                  <div className="text-center">
+                  {/* Hover sparkle effect - Only for active brands */}
+                  {!brand.isComingSoon && (
                     <motion.div
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, -5, 0],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute top-4 right-4 text-gray-400"
+                      initial={{ opacity: 0, rotate: 0 }}
+                      whileHover={{ opacity: 1, rotate: 180 }}
+                      transition={{ duration: 0.5 }}
                     >
-                      <Clock className="mx-auto mb-3 text-gray-600" size={48} />
+                      <Sparkles size={24} />
                     </motion.div>
-                    <span className="text-2xl font-bold font-serif text-gray-700">
-                      COMING SOON
-                    </span>
-                  </div>
-                ) : (
-                  <span className="text-lg font-serif">Brand Logo</span>
-                )}
-              </motion.div>
+                  )}
 
-              {/* Brand Name */}
-              <motion.h3
-                className="text-4xl font-serif font-bold text-gray-800 mb-4"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-                whileHover={{ color: "#4a5568" }}
-              >
-                {brand.name}
-              </motion.h3>
+                  {/* Brand Logo Placeholder */}
+                  <motion.div
+                    className={`w-full h-56 bg-linear-to-br ${brand.isComingSoon ? "from-gray-300 to-gray-400" : "from-gray-200 to-gray-300"} rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative`}
+                    whileHover={{ scale: brand.isComingSoon ? 1 : 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {!brand.isComingSoon && (
+                      <motion.div
+                        className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          repeatDelay: 2,
+                        }}
+                      />
+                    )}
 
-              {/* Decorative divider */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={isInView ? { width: "80px" } : {}}
-                transition={{ delay: 1 + index * 0.2, duration: 0.6 }}
-                className="h-0.5 bg-gray-400 mb-6"
-              />
+                    {brand.isComingSoon ? (
+                      <div className="text-center">
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="mb-4"
+                        >
+                          {brand.logo && (
+                            <brand.logo 
+                              className={`mx-auto ${brand.logoColor}`} 
+                              size={80} 
+                              strokeWidth={1.5}
+                            />
+                          )}
+                        </motion.div>
+                        <motion.div
+                          animate={{
+                            opacity: [0.5, 1, 0.5],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <Clock className="mx-auto mb-2 text-gray-600" size={32} />
+                          <span className="text-xl font-bold font-serif text-gray-700">
+                            COMING SOON
+                          </span>
+                        </motion.div>
+                      </div>
+                    ) : (
+                      <span className="text-lg font-serif">Brand Logo</span>
+                    )}
+                  </motion.div>
 
-              {/* Brand Description */}
-              <p
-                className="text-gray-600 leading-relaxed mb-8"
-                style={{ fontFamily: "'Lora', serif" }}
-              >
-                {brand.description}
-              </p>
+                  {/* Brand Name - Clickable if website exists */}
+                  {brand.website ? (
+                    <motion.a
+                      href={brand.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-4xl font-serif font-bold text-gray-800 mb-4 block hover:text-gray-600 transition-colors"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      {brand.name}
+                    </motion.a>
+                  ) : (
+                    <motion.h3
+                      className="text-4xl font-serif font-bold text-gray-800 mb-4"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      {brand.name}
+                    </motion.h3>
+                  )}
 
-              {/* Stats Grid - COMMENTED OUT FOR FUTURE USE */}
-              {/* {!brand.isComingSoon && brand.stats && (
-      <div className="grid grid-cols-3 gap-4 mb-8 py-6 border-t-2 border-b-2 border-gray-300">
-        {[
-          { icon: Users, value: brand.stats.users, label: 'Users' },
-          { icon: Star, value: brand.stats.rating, label: 'Rating' },
-          { icon: Download, value: brand.stats.downloads, label: 'Downloads' }
-        ].map((stat, i) => (
-          <div
-            key={i}
-            className="text-center"
-          >
-            <stat.icon className="mx-auto mb-2 text-gray-600" size={24} />
-            <motion.div
-              className="font-bold text-gray-800 text-lg"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : {}}
-              transition={{ delay: 1 + i * 0.1, type: "spring" }}
-            >
-              {stat.value}
+                  {/* Decorative divider */}
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={isInView ? { width: "80px" } : {}}
+                    transition={{ delay: 1 + index * 0.2, duration: 0.6 }}
+                    className="h-0.5 bg-gray-400 mb-6"
+                  />
+
+                  {/* Brand Description */}
+                  <p
+                    className="text-gray-600 leading-relaxed mb-8"
+                    style={{ fontFamily: "'Lora', serif" }}
+                  >
+                    {brand.description}
+                  </p>
+
+                  {/* App Store Buttons - Only show for active brands */}
+                  {!brand.isComingSoon && (
+                    <div className="flex gap-4">
+                      <motion.a
+                        whileHover={{
+                          scale: 1.05,
+                          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        href={brand.playStoreUrl}
+                        className="flex-1 bg-linear-to-r from-gray-800 to-gray-700 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-600 flex items-center justify-center"
+                      >
+                        <PlayStoreIcon />
+                        <span className="hidden sm:inline">Play Store</span>
+                        <span className="sm:hidden">Play</span>
+                      </motion.a>
+                      <motion.a
+                        whileHover={{
+                          scale: 1.05,
+                          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        href={brand.appStoreUrl}
+                        className="flex-1 bg-linear-to-r from-gray-700 to-gray-800 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-500 flex items-center justify-center"
+                      >
+                        <AppStoreIcon />
+                        <span className="hidden sm:inline">App Store</span>
+                        <span className="sm:hidden">App</span>
+                      </motion.a>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
             </motion.div>
-            <div className="text-xs font-bold  text-gray-500 uppercase tracking-wider" style={{ fontFamily: "'Cinzel', serif" }}>
-              {stat.label}
-            </div>
           </div>
-        ))}
-      </div>
-    )} */}
 
-              {/* App Store Buttons - Only show for active brands */}
-              {!brand.isComingSoon && (
-                <div className="flex gap-4">
-                  <motion.a
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    href="#"
-                    className="flex-1 bg-linear-to-r from-gray-800 to-gray-700 text-white py-4 px-6 rounded-sm text-center font-medium transition-all duration-300 border border-gray-600"
-                  >
-                    Play Store
-                  </motion.a>
-                  <motion.a
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    href="#"
-                    className="flex-1 bg-linear-to-r from-gray-700 to-gray-800 text-white py-4 px-6 rounded-sm text-center font-medium transition-all duration-300 border border-gray-500"
-                  >
-                    App Store
-                  </motion.a>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+          {/* Pagination Dots */}
+          {brands.length > itemsPerView && (
+            <div className="flex justify-center gap-2 mt-12">
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentIndex === index 
+                      ? "bg-gray-700 w-8" 
+                      : "bg-gray-400 hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

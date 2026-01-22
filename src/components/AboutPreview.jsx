@@ -75,7 +75,7 @@ const AboutPreview = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            About Reeviy
+            About ReeViy
           </motion.h2>
 
           <motion.p
@@ -85,7 +85,7 @@ const AboutPreview = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            Reeviy is a next-generation digital platform company focused on
+            ReeViy is a next-generation digital platform company focused on
             building meaningful, human-first social and dating experiences. We
             blend data-driven insights, intuitive design, and behavioral
             understanding to create technology that helps people connect better.
