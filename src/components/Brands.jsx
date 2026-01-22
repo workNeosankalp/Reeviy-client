@@ -1,4 +1,4 @@
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import {
@@ -11,6 +11,7 @@ import {
   DollarSign,
   ChevronLeft,
   ChevronRight,
+  Rocket,
 } from "lucide-react";
 
 const Brands = () => {
@@ -19,6 +20,7 @@ const Brands = () => {
   const controls = useAnimation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     if (isInView) {
@@ -43,13 +45,21 @@ const Brands = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Handle alert display
+  const handleStoreClick = (e) => {
+    e.preventDefault();
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 4000);
+  };
+
   const brands = [
     {
       name: "ReckMe",
       description:
         "A fresh take on modern dating designed to encourage genuine connections, smarter matching, and real conversations. ReckMe moves beyond swipe culture to help you build meaningful relationships.",
       website: "https://reckme.com",
-
       playStoreUrl: "#",
       appStoreUrl: "#",
       logo: "/reckme_logo.png",
@@ -140,6 +150,30 @@ const Brands = () => {
       ref={ref}
       className="py-24 bg-linear-to-br from-slate-50 via-gray-100 to-slate-100 border-t-2 border-gray-300 relative vintage-texture"
     >
+      {/* Alert Notification */}
+      <AnimatePresence>
+        {showAlert && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-20 md:top-24 left-4 right-4 md:left-1/2 md:right-auto md:transform md:-translate-x-1/2 z-50 bg-linear-to-r from-gray-700 via-gray-800 to-gray-700 text-white px-4 md:px-8 py-3 md:py-4 rounded-xl shadow-2xl flex items-center gap-2 md:gap-3 w-auto md:max-w-md border-2 border-gray-600"
+          >
+            <div className="bg-white/20 p-1.5 md:p-2 rounded-full shrink-0">
+              <Rocket size={20} className="md:w-6 md:h-6" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-sm md:text-lg truncate">
+                Launching Soon! 🚀
+              </p>
+              <p className="text-xs md:text-sm text-gray-200 line-clamp-2">
+                ReckMe app launches on 1st February 2026. Stay tuned!
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -280,9 +314,18 @@ const Brands = () => {
 
                   {/* Brand Logo Placeholder */}
                   <motion.div
-                    className={`w-full h-56 bg-linear-to-br ${brand.isComingSoon ? "from-gray-300 to-gray-400" : "from-gray-200 to-gray-300"} rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative`}
+                    className={`w-full h-56 bg-linear-to-br ${brand.isComingSoon ? "from-gray-300 to-gray-400" : "from-gray-200 to-gray-300"} rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative ${brand.website ? "cursor-pointer" : ""}`}
                     whileHover={{ scale: brand.isComingSoon ? 1 : 1.05 }}
                     transition={{ duration: 0.3 }}
+                    onClick={() => {
+                      if (brand.website && !brand.isComingSoon) {
+                        window.open(
+                          brand.website,
+                          "_blank",
+                          "noopener,noreferrer",
+                        );
+                      }
+                    }}
                   >
                     {!brand.isComingSoon && (
                       <motion.div
@@ -345,7 +388,7 @@ const Brands = () => {
                             <img
                               src={brand.logo}
                               alt={brand.name}
-                              className="w-36 h-36 object-contain"
+                              className="w-36 h-36 object-contain transition-transform duration-300 group-hover:scale-110"
                             />
                             <span className="text-xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-600">
                               {brand.name}
@@ -400,32 +443,32 @@ const Brands = () => {
                   {/* App Store Buttons - Only show for active brands */}
                   {!brand.isComingSoon && (
                     <div className="flex gap-4">
-                      <motion.a
+                      <motion.button
                         whileHover={{
                           scale: 1.05,
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                         }}
                         whileTap={{ scale: 0.95 }}
-                        href={brand.playStoreUrl}
-                        className="flex-1 bg-linear-to-r from-gray-800 to-gray-700 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-600 flex items-center justify-center"
+                        onClick={handleStoreClick}
+                        className="flex-1 bg-linear-to-r from-gray-800 to-gray-700 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-600 flex items-center justify-center cursor-pointer"
                       >
                         <PlayStoreIcon />
                         <span className="hidden sm:inline">Play Store</span>
                         <span className="sm:hidden">Play</span>
-                      </motion.a>
-                      <motion.a
+                      </motion.button>
+                      <motion.button
                         whileHover={{
                           scale: 1.05,
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                         }}
                         whileTap={{ scale: 0.95 }}
-                        href={brand.appStoreUrl}
-                        className="flex-1 bg-linear-to-r from-gray-700 to-gray-800 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-500 flex items-center justify-center"
+                        onClick={handleStoreClick}
+                        className="flex-1 bg-linear-to-r from-gray-700 to-gray-800 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-500 flex items-center justify-center cursor-pointer"
                       >
                         <AppStoreIcon />
                         <span className="hidden sm:inline">App Store</span>
                         <span className="sm:hidden">App</span>
-                      </motion.a>
+                      </motion.button>
                     </div>
                   )}
                 </motion.div>
