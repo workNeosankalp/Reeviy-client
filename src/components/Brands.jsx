@@ -1,7 +1,17 @@
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { Users, Star, Download, Sparkles, Clock, Package, DollarSign, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Users,
+  Star,
+  Download,
+  Sparkles,
+  Clock,
+  Package,
+  DollarSign,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 const Brands = () => {
   const ref = useRef(null);
@@ -41,7 +51,7 @@ const Brands = () => {
       website: "https://reckme.com",
       playStoreUrl: "#",
       appStoreUrl: "#",
-      logo: null,
+      logo: "/logo_reckme.png",
       isComingSoon: false,
     },
     {
@@ -62,7 +72,7 @@ const Brands = () => {
       logoColor: "text-green-600",
       isComingSoon: true,
     },
-    
+
     // Add more brands here in the future
   ];
 
@@ -201,7 +211,9 @@ const Brands = () => {
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
                 className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 bg-white/90 hover:bg-white border-2 border-gray-400 rounded-full p-3 shadow-lg transition-all duration-300 ${
-                  currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:scale-110"
+                  currentIndex === 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:scale-110"
                 }`}
                 aria-label="Previous brands"
               >
@@ -212,7 +224,9 @@ const Brands = () => {
                 onClick={handleNext}
                 disabled={currentIndex === maxIndex}
                 className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 bg-white/90 hover:bg-white border-2 border-gray-400 rounded-full p-3 shadow-lg transition-all duration-300 ${
-                  currentIndex === maxIndex ? "opacity-50 cursor-not-allowed" : "hover:scale-110"
+                  currentIndex === maxIndex
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:scale-110"
                 }`}
                 aria-label="Next brands"
               >
@@ -292,12 +306,20 @@ const Brands = () => {
                           transition={{ duration: 2, repeat: Infinity }}
                           className="mb-4"
                         >
-                          {brand.logo && (
-                            <brand.logo 
-                              className={`mx-auto ${brand.logoColor}`} 
-                              size={80} 
-                              strokeWidth={1.5}
+                          {brand.logo && typeof brand.logo === "string" ? (
+                            <img
+                              src={brand.logo}
+                              alt={brand.name}
+                              className="mx-auto w-20 h-20 object-contain"
                             />
+                          ) : (
+                            brand.logo && (
+                              <brand.logo
+                                className={`mx-auto ${brand.logoColor}`}
+                                size={80}
+                                strokeWidth={1.5}
+                              />
+                            )
                           )}
                         </motion.div>
                         <motion.div
@@ -306,14 +328,27 @@ const Brands = () => {
                           }}
                           transition={{ duration: 2, repeat: Infinity }}
                         >
-                          <Clock className="mx-auto mb-2 text-gray-600" size={32} />
+                          <Clock
+                            className="mx-auto mb-2 text-gray-600"
+                            size={32}
+                          />
                           <span className="text-xl font-bold font-serif text-gray-700">
                             COMING SOON
                           </span>
                         </motion.div>
                       </div>
                     ) : (
-                      <span className="text-lg font-serif">Brand Logo</span>
+                      <>
+                        {typeof brand.logo === "string" ? (
+                          <img
+                            src={brand.logo}
+                            alt={brand.name}
+                            className="w-32 h-32 object-contain"
+                          />
+                        ) : (
+                          <span className="text-lg font-serif">Brand Logo</span>
+                        )}
+                      </>
                     )}
                   </motion.div>
 
@@ -398,8 +433,8 @@ const Brands = () => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    currentIndex === index 
-                      ? "bg-gray-700 w-8" 
+                    currentIndex === index
+                      ? "bg-gray-700 w-8"
                       : "bg-gray-400 hover:bg-gray-500"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
