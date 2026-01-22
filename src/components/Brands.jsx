@@ -49,9 +49,10 @@ const Brands = () => {
       description:
         "A fresh take on modern dating designed to encourage genuine connections, smarter matching, and real conversations. ReckMe moves beyond swipe culture to help you build meaningful relationships.",
       website: "https://reckme.com",
+
       playStoreUrl: "#",
       appStoreUrl: "#",
-      logo: "/logo_reckme.png",
+      logo: "/reckme_logo.png",
       isComingSoon: false,
     },
     {
@@ -340,13 +341,20 @@ const Brands = () => {
                     ) : (
                       <>
                         {typeof brand.logo === "string" ? (
-                          <img
-                            src={brand.logo}
-                            alt={brand.name}
-                            className="w-32 h-32 object-contain"
-                          />
+                          <div className="flex flex-col items-center gap-2">
+                            <img
+                              src={brand.logo}
+                              alt={brand.name}
+                              className="w-36 h-36 object-contain"
+                            />
+                            <span className="text-xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-600">
+                              {brand.name}
+                            </span>
+                          </div>
                         ) : (
-                          <span className="text-lg font-serif">Brand Logo</span>
+                          <span className="text-xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-600">
+                            {brand.name}
+                          </span>
                         )}
                       </>
                     )}
