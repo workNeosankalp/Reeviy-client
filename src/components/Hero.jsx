@@ -71,7 +71,7 @@ const Hero = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:mt-8 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:mt-9 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,11 +102,7 @@ const Hero = () => {
                   delay: 0.5 + index * 0.1,
                 }}
                 className="inline-block"
-                whileHover={{
-                  scale: 1.2,
-                  color: "#4a5568",
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-                }}
+                
               >
                 {letter}
               </motion.span>

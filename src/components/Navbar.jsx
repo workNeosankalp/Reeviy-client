@@ -1,24 +1,24 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-  
+
   // Change navbar background on scroll
   const navbarBg = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.95)"]
+    ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.95)"],
   );
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -26,11 +26,11 @@ const Navbar = () => {
   const handleNavigation = (path) => {
     window.scrollTo(0, 0);
     setIsOpen(false);
-    
+
     if (location.pathname === path) {
       return;
     }
-    
+
     navigate(path);
   };
 
@@ -45,26 +45,25 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo with animation */}
-          <div onClick={() => handleNavigation('/')}>
+          <div onClick={() => handleNavigation("/")}>
             <motion.div
-              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              className="text-3xl font-serif font-bold text-gray-800 tracking-wide cursor-pointer relative"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+              className="cursor-pointer relative"
             >
-              {"Reeviy".split("").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block"
-                  whileHover={{
-                    y: -5,
-                    color: "#4a5568",
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
+              {/* Logo Image - uncomment when you have logo */}
+              <img
+                src="/logo.png"
+                alt="Reeviy"
+                className="h-10 md:h-12 w-auto object-contain"
+              />
+
+              {/* Text Logo - comment out when using image */}
+              <div
+                className="text-3xl font-serif font-bold text-gray-800 tracking-wide"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              ></div>
+
+              {/* Hover underline effect */}
               <motion.div
                 className="absolute -bottom-1 left-0 h-0.5 bg-gray-800"
                 initial={{ width: 0 }}
@@ -83,7 +82,7 @@ const Navbar = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleNavigation(item.path)}
                 className={`font-medium transition-colors duration-200 cursor-pointer relative py-2 ${
-                  isActive(item.path) ? 'text-gray-900' : 'text-gray-600'
+                  isActive(item.path) ? "text-gray-900" : "text-gray-600"
                 }`}
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
@@ -127,7 +126,9 @@ const Navbar = () => {
                 transition={{ delay: index * 0.1 }}
                 onClick={() => handleNavigation(item.path)}
                 className={`block py-3 transition-colors cursor-pointer ${
-                  isActive(item.path) ? 'text-gray-900 font-semibold' : 'text-gray-700'
+                  isActive(item.path)
+                    ? "text-gray-900 font-semibold"
+                    : "text-gray-700"
                 }`}
                 style={{ fontFamily: "'Cinzel', serif" }}
               >

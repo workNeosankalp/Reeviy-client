@@ -83,7 +83,7 @@ const About = () => {
             initial={{ width: 0 }}
             animate={heroInView ? { width: "150px" } : {}}
             transition={{ duration: 1, delay: 0.3 }}
-            className="h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent mx-auto mb-8"
+            className="h-0.5 bg-linear-to-r from-transparent via-gray-400 to-transparent mx-auto mb-8"
           />
 
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-gray-800 mb-8 text-center">
@@ -94,7 +94,7 @@ const About = () => {
             initial={{ width: 0 }}
             animate={heroInView ? { width: "200px" } : {}}
             transition={{ duration: 1, delay: 0.5 }}
-            className="h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent mx-auto mb-16"
+            className="h-0.5 bg-linear-to-r from-transparent via-gray-400 to-transparent mx-auto mb-16"
           />
 
           <div className="max-w-6xl mx-auto space-y-10">
@@ -103,7 +103,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-sm shadow-lg border-2 border-gray-300 relative vintage-texture"
+              className="bg-linear-to-br from-white to-gray-50 p-8 rounded-sm shadow-lg border-2 border-gray-300 relative vintage-texture"
             >
               {/* Corner decorations */}
               <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-gray-400 opacity-50"></div>
@@ -129,7 +129,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-sm shadow-xl border-2 border-gray-700 relative overflow-hidden"
+              className="bg-linear-to-br from-gray-800 to-gray-900 p-8 rounded-sm shadow-xl border-2 border-gray-700 relative overflow-hidden"
             >
               {/* Vintage corner ornaments */}
               <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-gray-600 opacity-40"></div>
@@ -177,7 +177,7 @@ const About = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={heroInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-sm shadow-md border border-gray-300 relative"
+                className="bg-linear-to-br from-gray-50 to-white p-6 rounded-sm shadow-md border border-gray-300 relative"
               >
                 <div className="absolute top-0 right-0 w-10 h-10 border-r-2 border-t-2 border-gray-300 opacity-40"></div>
 
@@ -208,7 +208,7 @@ const About = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={heroInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.7 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-sm shadow-md border border-gray-300 relative"
+                className="bg-linear-to-br from-gray-50 to-white p-6 rounded-sm shadow-md border border-gray-300 relative"
               >
                 <div className="absolute top-0 right-0 w-10 h-10 border-r-2 border-t-2 border-gray-300 opacity-40"></div>
 
@@ -241,7 +241,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-sm shadow-lg border-l-4 border-gray-700 vintage-texture relative"
+              className="bg-linear-to-br from-gray-50 to-white p-8 rounded-sm shadow-lg border-l-4 border-gray-700 vintage-texture relative"
             >
               <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-gray-300 opacity-30"></div>
 
