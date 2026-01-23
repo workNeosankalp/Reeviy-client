@@ -86,9 +86,10 @@ const AboutPreview = () => {
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             ReeViy is a next-generation digital platform company focused on
-            building meaningful, human-first social and dating experiences. We
-            blend data-driven insights, intuitive design, and behavioral
-            understanding to create technology that helps people connect better.
+            building human-first social and wellness experiences. We combine
+            data-driven insights, intuitive design, and behavioral understanding
+            to create technology that helps people interact, engage, and feel
+            more connected in everyday life.
           </motion.p>
 
           <motion.button

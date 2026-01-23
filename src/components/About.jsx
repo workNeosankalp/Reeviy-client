@@ -153,9 +153,9 @@ const About = () => {
                   className="text-base md:text-lg text-gray-200 leading-relaxed text-center mb-3"
                   style={{ fontFamily: "'Lora', serif" }}
                 >
-                  Launching this month — a fresh take on Comapanionship and
-                  modern dating designed to combat loneliness through genuine
-                  connections, smarter matching, and real conversations.
+                  Launching this month — a fresh approach to human connection
+                  designed to combat loneliness through meaningful interactions
+                  and real conversations.
                 </p>
 
                 <div className="flex items-center justify-center gap-3 mt-4">
@@ -230,8 +230,11 @@ const About = () => {
                   className="text-sm text-gray-600 leading-relaxed"
                   style={{ fontFamily: "'Lora', serif" }}
                 >
-                  Technology that enhances how people meet, communicate, and
-                  build lasting relationships.
+                  Our vision is to become a trusted global technology ecosystem,
+                  powering innovative products across social platforms, fintech,
+                  healthcare, real estate, and supply chain domains—enabling
+                  smarter interactions, improved user experiences, and
+                  sustainable growth through technology.
                 </p>
               </motion.div>
             </div>
@@ -351,10 +354,9 @@ const About = () => {
               className="text-gray-600 leading-relaxed"
               style={{ fontFamily: "'Lora', serif" }}
             >
-              To become a trusted global technology ecosystem powering
-              innovative products across social, fintech, healthcare, real
-              estate, and supply chain domains — enabling smarter interactions,
-              stronger relationships, and sustainable growth through technology.
+              We build technology that enhances how people meet, communicate,
+              and engage meaningfully, fostering comfort, trust, and long-term
+              value across digital experiences.
             </p>
           </motion.div>
         </div>

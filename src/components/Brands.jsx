@@ -58,7 +58,7 @@ const Brands = () => {
     {
       name: "ReckMe",
       description:
-        "A fresh take on modern dating designed to encourage genuine connections, smarter matching, and real conversations. ReckMe moves beyond swipe culture to help you build meaningful relationships.",
+        "A modern social platform built to move beyond swipe culture and focus on real conversations and meaningful interactions.",
       website: "https://reckme.com",
       playStoreUrl: "#",
       appStoreUrl: "#",
