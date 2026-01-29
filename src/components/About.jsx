@@ -440,9 +440,11 @@ const About = () => {
               whileHover={{ scale: 1.05 }}
               className="w-48 h-48 bg-gray-300 rounded-sm shrink-0 overflow-hidden shadow-lg"
             >
-              <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm">
-                Founder Photo
-              </div>
+              <img
+                src="/founder.png"
+                alt="Founder"
+                className="w-full h-full object-cover"
+              />
             </motion.div>
 
             {/* Founder Info */}
