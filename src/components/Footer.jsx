@@ -19,7 +19,7 @@ const Footer = () => {
     },
     {
       icon: Twitter,
-      href: "#", 
+      href: "https://x.com/reeviy_info?s=11", 
       label: "Twitter",
     },
     {
