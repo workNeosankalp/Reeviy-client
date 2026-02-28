@@ -2,9 +2,7 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import {
-  Users,
   Star,
-  Download,
   Sparkles,
   Clock,
   Package,
@@ -28,7 +26,6 @@ const Brands = () => {
     }
   }, [isInView, controls]);
 
-  // Handle responsive items per view
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -45,13 +42,14 @@ const Brands = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle alert display
-  const handleStoreClick = (e) => {
+  const handlePlayStoreClick = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleAppStoreClick = (e) => {
     e.preventDefault();
     setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 4000);
+    setTimeout(() => setShowAlert(false), 4000);
   };
 
   const brands = [
@@ -60,7 +58,8 @@ const Brands = () => {
       description:
         "A modern social platform built to move beyond swipe culture and focus on real conversations and meaningful interactions.",
       website: "https://reckme.com",
-      playStoreUrl: "#",
+      playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.reeviy.reckme",
       appStoreUrl: "#",
       logo: "/reckme_logo.png",
       isComingSoon: false,
@@ -83,8 +82,6 @@ const Brands = () => {
       logoColor: "text-green-600",
       isComingSoon: true,
     },
-
-    // Add more brands here in the future
   ];
 
   const maxIndex = Math.max(0, brands.length - itemsPerView);
@@ -95,16 +92,6 @@ const Brands = () => {
 
   const handleNext = () => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
   };
 
   const cardVariants = {
@@ -120,7 +107,6 @@ const Brands = () => {
     },
   };
 
-  // Play Store Icon SVG
   const PlayStoreIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +118,6 @@ const Brands = () => {
     </svg>
   );
 
-  // App Store Icon SVG
   const AppStoreIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -164,10 +149,10 @@ const Brands = () => {
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-sm md:text-lg truncate">
-                Launching Soon! 🚀
+                Coming Soon! 🚀
               </p>
               <p className="text-xs md:text-sm text-gray-200 line-clamp-2">
-                ReckMe app launches on 1st February 2026. Stay tuned!
+                ReckMe on App Store is coming soon. Stay tuned!
               </p>
             </div>
           </motion.div>
@@ -292,7 +277,9 @@ const Brands = () => {
                   style={{
                     minWidth: `calc(${100 / itemsPerView}% - ${(40 * (itemsPerView - 1)) / itemsPerView}px)`,
                   }}
-                  className={`bg-linear-to-br from-white to-gray-50 p-10 rounded-sm vintage-shadow border-2 border-gray-300 relative overflow-hidden group ${brand.isComingSoon ? "opacity-90" : ""}`}
+                  className={`bg-linear-to-br from-white to-gray-50 p-10 rounded-sm vintage-shadow border-2 border-gray-300 relative overflow-hidden group ${
+                    brand.isComingSoon ? "opacity-90" : ""
+                  }`}
                 >
                   {/* Decorative corner elements */}
                   <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-gray-400 opacity-40" />
@@ -300,7 +287,7 @@ const Brands = () => {
                   <div className="absolute bottom-0 left-0 w-12 h-12 border-l-2 border-b-2 border-gray-400 opacity-40" />
                   <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-gray-400 opacity-40" />
 
-                  {/* Hover sparkle effect - Only for active brands */}
+                  {/* Hover sparkle effect */}
                   {!brand.isComingSoon && (
                     <motion.div
                       className="absolute top-4 right-4 text-gray-400"
@@ -312,9 +299,15 @@ const Brands = () => {
                     </motion.div>
                   )}
 
-                  {/* Brand Logo Placeholder */}
+                  {/* Brand Logo */}
                   <motion.div
-                    className={`w-full h-56 bg-linear-to-br ${brand.isComingSoon ? "from-gray-300 to-gray-400" : "from-gray-200 to-gray-300"} rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative ${brand.website ? "cursor-pointer" : ""}`}
+                    className={`w-full h-56 bg-linear-to-br ${
+                      brand.isComingSoon
+                        ? "from-gray-300 to-gray-400"
+                        : "from-gray-200 to-gray-300"
+                    } rounded-sm mb-8 flex items-center justify-center text-gray-500 overflow-hidden relative ${
+                      brand.website ? "cursor-pointer" : ""
+                    }`}
                     whileHover={{ scale: brand.isComingSoon ? 1 : 1.05 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => {
@@ -330,9 +323,7 @@ const Brands = () => {
                     {!brand.isComingSoon && (
                       <motion.div
                         className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
-                        animate={{
-                          x: ["-100%", "100%"],
-                        }}
+                        animate={{ x: ["-100%", "100%"] }}
                         transition={{
                           duration: 1.5,
                           repeat: Infinity,
@@ -344,9 +335,7 @@ const Brands = () => {
                     {brand.isComingSoon ? (
                       <div className="text-center">
                         <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1],
-                          }}
+                          animate={{ scale: [1, 1.1, 1] }}
                           transition={{ duration: 2, repeat: Infinity }}
                           className="mb-4"
                         >
@@ -367,9 +356,7 @@ const Brands = () => {
                           )}
                         </motion.div>
                         <motion.div
-                          animate={{
-                            opacity: [0.5, 1, 0.5],
-                          }}
+                          animate={{ opacity: [0.5, 1, 0.5] }}
                           transition={{ duration: 2, repeat: Infinity }}
                         >
                           <Clock
@@ -403,7 +390,7 @@ const Brands = () => {
                     )}
                   </motion.div>
 
-                  {/* Brand Name - Clickable if website exists */}
+                  {/* Brand Name */}
                   {brand.website ? (
                     <motion.a
                       href={brand.website}
@@ -440,29 +427,32 @@ const Brands = () => {
                     {brand.description}
                   </p>
 
-                  {/* App Store Buttons - Only show for active brands */}
+                  {/* App Store Buttons — only for active brands */}
                   {!brand.isComingSoon && (
                     <div className="flex gap-4">
+                      {/* ✅ Play Store — opens real link */}
                       <motion.button
                         whileHover={{
                           scale: 1.05,
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                         }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={handleStoreClick}
+                        onClick={() => handlePlayStoreClick(brand.playStoreUrl)}
                         className="flex-1 bg-linear-to-r from-gray-800 to-gray-700 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-600 flex items-center justify-center cursor-pointer"
                       >
                         <PlayStoreIcon />
                         <span className="hidden sm:inline">Play Store</span>
                         <span className="sm:hidden">Play</span>
                       </motion.button>
+
+                      {/* ✅ App Store — shows Coming Soon alert */}
                       <motion.button
                         whileHover={{
                           scale: 1.05,
                           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                         }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={handleStoreClick}
+                        onClick={handleAppStoreClick}
                         className="flex-1 bg-linear-to-r from-gray-700 to-gray-800 text-white py-4 px-4 rounded-sm text-center font-medium transition-all duration-300 border border-gray-500 flex items-center justify-center cursor-pointer"
                       >
                         <AppStoreIcon />

@@ -11,6 +11,29 @@ const Footer = () => {
     navigate(path);
   };
 
+  const socialLinks = [
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/profile.php?id=61588100362608",
+      label: "Facebook",
+    },
+    {
+      icon: Twitter,
+      href: "#", 
+      label: "Twitter",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/ree.viy?igsh=bnFoamxmYnpsbDY5&utm_source=qr", 
+      label: "Instagram",
+    },
+    {
+      icon: Linkedin,
+      href: "#", 
+      label: "LinkedIn",
+    },
+  ];
+
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,11 +77,14 @@ const Footer = () => {
               Connect With Us
             </h4>
             <div className="flex gap-4">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
-                  key={index}
+                  key={label}
                   whileHover={{ scale: 1.2, y: -5 }}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   <Icon size={24} />
